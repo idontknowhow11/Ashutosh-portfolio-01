@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ashutosh Singh — B.Tech student & Creative Frontend Developer based in Lucknow. Building clean, responsive, and interactive web experiences." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Ashutosh Singh — Creative Developer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Instrument Serif', 'Georgia', 'serif'],
+          },
+          colors: {
+            surface: {
+              50: '#fafafa',
+              100: '#f4f4f5',
+              200: '#e4e4e7',
+              800: '#18181b',
+              900: '#0a0a0a',
+              950: '#050505',
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease forwards',
+            'slide-up': 'slideUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+            slideUp: { '0%': { opacity: 0, transform: 'translateY(40px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Noise texture -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-logo" id="loaderLogo">AS</div>
+    <div class="loader-bar"><div class="loader-progress" id="loaderProgress"></div></div>
+  </div>
+
+  <!-- Floating Navigation -->
+  <nav class="nav-float" id="nav">
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#about" class="nav-link nav-desktop">About</a>
+    <a href="#experience" class="nav-link nav-desktop">Experience</a>
+    <a href="#projects" class="nav-link">Work</a>
+    <a href="#skills" class="nav-link nav-desktop">Skills</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <i data-lucide="moon" id="themeIcon" class="w-4 h-4"></i>
+      </button>
+      <button class="icon-btn md:hidden" id="menuToggle" aria-label="Menu">
+        <i data-lucide="menu" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobileMenu" class="fixed inset-0 z-[99] bg-[var(--bg)] flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
+    <a href="#home" class="text-3xl font-serif mobile-link">Home</a>
+    <a href="#about" class="text-3xl font-serif mobile-link">About</a>
+    <a href="#experience" class="text-3xl font-serif mobile-link">Experience</a>
+    <a href="#projects" class="text-3xl font-serif mobile-link">Work</a>
+    <a href="#skills" class="text-3xl font-serif mobile-link">Skills</a>
+    <a href="#contact" class="text-3xl font-serif mobile-link">Contact</a>
+  </div>
+
+  <main>
+    <!-- ==================== HERO ==================== -->
+    <section id="home" class="hero">
+      <div class="hero-bg"></div>
+      <div class="max-w-6xl mx-auto w-full relative z-10">
+        <div class="flex flex-wrap items-center gap-3 mb-8 reveal">
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            Available for internships
+          </span>
+          <span class="text-sm text-[var(--text-muted)]">Lucknow, India</span>
+        </div>
+
+        <h1 class="hero-name reveal">
+          Ashutosh<br /><span class="italic">Singh</span>
+        </h1>
+
+        <div class="mt-8 md:mt-12 max-w-2xl reveal">
+          <p class="hero-title mb-6">
+            B.Tech student & creative frontend developer crafting clean, responsive, and interactive web experiences.
+          </p>
+          <div class="flex flex-wrap gap-4 items-center">
+            <a href="#projects" class="magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[var(--text)] text-[var(--bg)] font-medium text-sm hover:opacity-90 transition-opacity">
+              View Work
+              <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#contact" class="magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-[var(--border)] font-medium text-sm hover:bg-[var(--border)] transition-colors">
+              Get in Touch
+            </a>
+          </div>
+        </div>
+
+        <!-- Social row -->
+        <div class="mt-16 flex flex-wrap gap-6 reveal">
+          <a href="https://github.com/idontknowhow11" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors">
+            <i data-lucide="github" class="w-4 h-4"></i> GitHub
+          </a>
+          <a href="mailto:ashu9720480867@gmail.com" class="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors">
+            <i data-lucide="mail" class="w-4 h-4"></i> Email
+          </a>
+          <a href="#contact" class="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Resume
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-muted)] text-xs tracking-widest uppercase">
+        <span>Scroll</span>
+        <div class="w-px h-12 bg-[var(--border)] relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1/2 bg-[var(--text)] animate-pulse"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="max-w-6xl mx-auto">
+      <div class="section-label reveal">About</div>
+      <h2 class="section-title reveal">Building a strong<br />foundation on the web</h2>
+
+      <div class="grid md:grid-cols-12 gap-12 mt-12">
+        <div class="md:col-span-7 reveal">
+          <p class="text-lg leading-relaxed text-[var(--text-muted)] mb-6">
+            I am an undergraduate B.Tech. student at <strong class="text-[var(--text)]">Shri Ramswaroop Memorial University (SRMU)</strong> in Lucknow. I enjoy turning ideas into structured, accessible web pages and learning how modern front-end interfaces work under the hood.
+          </p>
+          <p class="text-lg leading-relaxed text-[var(--text-muted)]">
+            Through coursework and hands-on assignments, I practice responsive CSS Grid & Flexbox layouts, DOM manipulation, event handling, and version control with Git & GitHub. My focus is semantic markup, clean interactions, and thoughtful motion.
+          </p>
+        </div>
+
+        <div class="md:col-span-5 reveal">
+          <div class="glass p-8 space-y-6">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-[var(--text-muted)]">Name</span>
+              <span class="font-medium">Ashutosh Singh</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-[var(--text-muted)]">University</span>
+              <span class="font-medium">SRMU, Lucknow</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-[var(--text-muted)]">Degree</span>
+              <span class="font-medium">B.Tech.</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-[var(--text-muted)]">Focus</span>
+              <span class="font-medium">Frontend</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-[var(--text-muted)]">Status</span>
+              <span class="font-medium text-emerald-500">Open to Internships</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+        <div class="text-center reveal">
+          <div class="stat-number" data-count="3">0</div>
+          <div class="text-sm text-[var(--text-muted)] mt-2">Featured Projects</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number" data-count="6">0</div>
+          <div class="text-sm text-[var(--text-muted)] mt-2">Core Technologies</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number" data-count="90">0</div>
+          <div class="text-sm text-[var(--text-muted)] mt-2">% HTML5 Proficiency</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number" data-count="1">0</div>
+          <div class="text-sm text-[var(--text-muted)] mt-2">Year of Active Learning</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section id="experience" class="bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+      <div class="max-w-6xl mx-auto">
+        <div class="section-label reveal">Experience & Education</div>
+        <h2 class="section-title reveal">Academic journey<br />& milestones</h2>
+
+        <div class="relative mt-16 pl-2">
+          <div class="timeline-line"></div>
+
+          <!-- Item 1 -->
+          <div class="flex gap-6 mb-16 reveal">
+            <div class="timeline-dot"></div>
+            <div class="flex-1 pt-0.5">
+              <div class="text-sm font-medium text-[var(--text-muted)] mb-2">2025 – Present</div>
+              <h3 class="text-xl font-semibold mb-1">Bachelor of Technology (B.Tech.)</h3>
+              <div class="text-[var(--text-muted)] mb-4">Shri Ramswaroop Memorial University · Lucknow</div>
+              <p class="text-[var(--text-muted)] leading-relaxed max-w-2xl">
+                Undergraduate engineering studies with coursework in Web Technologies (HTML, CSS, JavaScript), Engineering Mathematics, and Computing & Circuit Foundations. Building production-ready interfaces and interactive prototypes.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-4">
+                <span class="px-3 py-1 text-xs rounded-full border border-[var(--border)]">HTML5</span>
+                <span class="px-3 py-1 text-xs rounded-full border border-[var(--border)]">CSS3</span>
+                <span class="px-3 py-1 text-xs rounded-full border border-[var(--border)]">JavaScript</span>
+                <span class="px-3 py-1 text-xs rounded-full border border-[var(--border)]">Git</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="flex gap-6 mb-16 reveal">
+            <div class="timeline-dot"></div>
+            <div class="flex-1 pt-0.5">
+              <div class="text-sm font-medium text-[var(--text-muted)] mb-2">Class XII · 2025</div>
+              <h3 class="text-xl font-semibold mb-1">Senior Secondary Education</h3>
+              <div class="text-[var(--text-muted)] mb-4">J.K. Modern Academy, Dhampur · CBSE Board</div>
+              <p class="text-[var(--text-muted)] leading-relaxed max-w-2xl">
+                Completed higher secondary coursework under the Central Board of Secondary Education with a strong emphasis on mathematics and computer fundamentals.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="flex gap-6 reveal">
+            <div class="timeline-dot"></div>
+            <div class="flex-1 pt-0.5">
+              <div class="text-sm font-medium text-[var(--text-muted)] mb-2">Class X · 2022</div>
+              <h3 class="text-xl font-semibold mb-1">Secondary School Education</h3>
+              <div class="text-[var(--text-muted)] mb-4">St. Mary's Convent Sr. Sec. School, Dhampur · CBSE</div>
+              <p class="text-[var(--text-muted)] leading-relaxed max-w-2xl">
+                Built a solid foundation in mathematics and computer science that continues to inform my approach to structured problem-solving in frontend development.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section id="projects" class="max-w-6xl mx-auto">
+      <div class="section-label reveal">Selected Work</div>
+      <h2 class="section-title reveal">Projects that<br />shape my craft</h2>
+
+      <div class="grid md:grid-cols-2 gap-8 mt-16">
+        <!-- Project 1 -->
+        <article class="project-card glass overflow-hidden reveal" data-tilt>
+          <div class="h-56 bg-gradient-to-br from-zinc-800 to-zinc-600 relative overflow-hidden">
+            <div class="absolute inset-0 flex items-end p-6">
+              <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur text-white">HTML · CSS · JS</span>
+            </div>
+            <div class="absolute top-6 right-6 text-white/40">
+              <i data-lucide="layout" class="w-12 h-12"></i>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="text-xl font-semibold mb-2">Personal Portfolio Website</h3>
+            <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-5">
+              A responsive multi-section portfolio featuring theme switching, interactive filtering, typing animation, and validated contact form — built entirely from scratch.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">HTML5</span>
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">CSS3</span>
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">JavaScript</span>
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">Responsive</span>
+            </div>
+            <button class="view-details magnetic text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all" data-project="portfolio">
+              View details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card glass overflow-hidden reveal" data-tilt>
+          <div class="h-56 bg-gradient-to-br from-teal-900 to-cyan-700 relative overflow-hidden">
+            <div class="absolute inset-0 flex items-end p-6">
+              <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur text-white">JavaScript App</span>
+            </div>
+            <div class="absolute top-6 right-6 text-white/40">
+              <i data-lucide="check-square" class="w-12 h-12"></i>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="text-xl font-semibold mb-2">Interactive Study Task Tracker</h3>
+            <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-5">
+              Client-side task manager with creation, completion toggles, filtering, and persistent browser storage so students can organise assignments cleanly.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">JavaScript</span>
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">DOM API</span>
+              <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">CSS Flexbox</span>
+            </div>
+            <button class="view-details magnetic text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all" data-project="task">
+              View details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card glass overflow-hidden reveal md:col-span-2" data-tilt>
+          <div class="md:flex">
+            <div class="h-56 md:h-auto md:w-2/5 bg-gradient-to-br from-indigo-900 to-blue-700 relative overflow-hidden flex-shrink-0">
+              <div class="absolute inset-0 flex items-end p-6">
+                <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur text-white">HTML & CSS</span>
+              </div>
+              <div class="absolute top-6 right-6 text-white/40">
+                <i data-lucide="monitor" class="w-12 h-12"></i>
+              </div>
+            </div>
+            <div class="p-7 flex flex-col justify-center">
+              <h3 class="text-xl font-semibold mb-2">Responsive Product Landing Page</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-5 max-w-xl">
+                Clean multi-breakpoint landing page with responsive navigation, feature cards, and pricing table. Focused on mobile-first media queries, accessible typography, and fluid grid layouts.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">HTML5</span>
+                <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">CSS Grid</span>
+                <span class="px-2.5 py-1 text-xs rounded-md bg-[var(--border)]">Media Queries</span>
+              </div>
+              <button class="view-details magnetic text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all w-fit" data-project="landing">
+                View details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills" class="bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+      <div class="max-w-6xl mx-auto">
+        <div class="section-label reveal">Capabilities</div>
+        <h2 class="section-title reveal">Technical toolkit</h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mt-14">
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="code-2" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">HTML5</span>
+          </div>
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="palette" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">CSS3</span>
+          </div>
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="braces" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">JavaScript</span>
+          </div>
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="layout-grid" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">Responsive</span>
+          </div>
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="git-branch" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">Git & GitHub</span>
+          </div>
+          <div class="skill-item reveal">
+            <div class="skill-icon"><i data-lucide="globe" class="w-5 h-5"></i></div>
+            <span class="text-sm font-medium text-center">GitHub Pages</span>
+          </div>
+        </div>
+
+        <!-- Skill bars -->
+        <div class="mt-16 grid md:grid-cols-2 gap-8">
+          <div class="space-y-6 reveal">
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>HTML5 & Semantic Markup</span><span class="text-[var(--text-muted)]">90%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="90%" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>CSS3 · Flexbox & Grid</span><span class="text-[var(--text-muted)]">85%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="85%" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>JavaScript (ES6+)</span><span class="text-[var(--text-muted)]">80%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="80%" style="width:0"></div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6 reveal">
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>UI Layout & Accessibility</span><span class="text-[var(--text-muted)]">78%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="78%" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>Git & Version Control</span><span class="text-[var(--text-muted)]">82%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="82%" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>Static Deployment</span><span class="text-[var(--text-muted)]">85%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+                <div class="progress-bar h-full rounded-full bg-[var(--text)]" data-width="85%" style="width:0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACHIEVEMENTS ==================== -->
+    <section id="achievements" class="max-w-6xl mx-auto">
+      <div class="section-label reveal">Recognition</div>
+      <h2 class="section-title reveal">Achievements &amp;<br />milestones</h2>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-14">
+        <div class="glass p-7 reveal">
+          <div class="w-10 h-10 rounded-xl bg-[var(--border)] grid place-items-center mb-5">
+            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-semibold mb-2">B.Tech. Undergraduate</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Currently pursuing engineering at SRMU with a focus on web technologies and interactive systems.</p>
+        </div>
+        <div class="glass p-7 reveal">
+          <div class="w-10 h-10 rounded-xl bg-[var(--border)] grid place-items-center mb-5">
+            <i data-lucide="code" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Hands-on Projects</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Shipped multiple client-side applications demonstrating DOM mastery, responsive design, and clean architecture.</p>
+        </div>
+        <div class="glass p-7 reveal">
+          <div class="w-10 h-10 rounded-xl bg-[var(--border)] grid place-items-center mb-5">
+            <i data-lucide="rocket" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Open to Opportunities</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Actively seeking internships where I can contribute to real products and grow as a frontend engineer.</p>
+        </div>
+      </div>
+
+      <!-- Horizontal testimonials / notes -->
+      <div class="mt-20">
+        <div class="section-label mb-6 reveal">What drives me</div>
+        <div class="marquee reveal">
+          <div class="marquee-track">
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“I enjoy turning ideas into structured, accessible web pages and learning how modern front-end interfaces work under the hood.”</p>
+              <div class="mt-4 text-xs font-medium">— Ashutosh Singh</div>
+            </div>
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“Semantic markup, responsive layouts, and thoughtful motion form the foundation of every interface I build.”</p>
+              <div class="mt-4 text-xs font-medium">— Design Philosophy</div>
+            </div>
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“Every project is an opportunity to refine craft — from clean CSS architecture to performant JavaScript interactions.”</p>
+              <div class="mt-4 text-xs font-medium">— Approach</div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“I enjoy turning ideas into structured, accessible web pages and learning how modern front-end interfaces work under the hood.”</p>
+              <div class="mt-4 text-xs font-medium">— Ashutosh Singh</div>
+            </div>
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“Semantic markup, responsive layouts, and thoughtful motion form the foundation of every interface I build.”</p>
+              <div class="mt-4 text-xs font-medium">— Design Philosophy</div>
+            </div>
+            <div class="glass px-8 py-6 min-w-[320px] max-w-sm">
+              <p class="text-sm leading-relaxed text-[var(--text-muted)] italic">“Every project is an opportunity to refine craft — from clean CSS architecture to performant JavaScript interactions.”</p>
+              <div class="mt-4 text-xs font-medium">— Approach</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="bg-[var(--bg-elevated)] border-t border-[var(--border)]">
+      <div class="max-w-6xl mx-auto">
+        <div class="section-label reveal">Contact</div>
+        <h2 class="section-title reveal">Let's build<br />something great</h2>
+        <p class="text-lg text-[var(--text-muted)] max-w-xl mt-4 reveal">
+          Have a project idea, internship opportunity, or just want to say hello? I'd love to hear from you.
+        </p>
+
+        <div class="grid md:grid-cols-12 gap-12 mt-16">
+          <!-- Contact info -->
+          <div class="md:col-span-5 space-y-6 reveal">
+            <div class="glass p-6 flex items-center justify-between gap-4">
+              <div>
+                <div class="text-xs text-[var(--text-muted)] mb-1">Email</div>
+                <div class="font-medium text-sm break-all" id="emailValue">ashu9720480867@gmail.com</div>
+              </div>
+              <button class="icon-btn" id="copyEmail" aria-label="Copy email">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <div class="glass p-6">
+              <div class="text-xs text-[var(--text-muted)] mb-1">Location</div>
+              <div class="font-medium">Lucknow, Uttar Pradesh, India</div>
+            </div>
+            <div class="glass p-6 flex items-center justify-between gap-4">
+              <div>
+                <div class="text-xs text-[var(--text-muted)] mb-1">GitHub</div>
+                <a href="https://github.com/idontknowhow11" target="_blank" rel="noopener" class="font-medium text-sm hover:underline">github.com/idontknowhow11</a>
+              </div>
+              <a href="https://github.com/idontknowhow11" target="_blank" rel="noopener" class="icon-btn">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form id="contactForm" class="md:col-span-7 space-y-5 reveal" novalidate>
+            <div>
+              <label for="name" class="block text-sm font-medium mb-2">Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
+              <div class="text-xs text-red-500 mt-1 min-h-[1.2em]" id="nameError"></div>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-2">Email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required />
+              <div class="text-xs text-red-500 mt-1 min-h-[1.2em]" id="emailError"></div>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+              <textarea id="message" name="message" class="form-input" placeholder="Tell me about your project or opportunity..." required></textarea>
+              <div class="text-xs text-red-500 mt-1 min-h-[1.2em]" id="messageError"></div>
+            </div>
+            <button type="submit" class="magnetic w-full sm:w-auto px-8 py-3.5 rounded-full bg-[var(--text)] text-[var(--bg)] font-medium text-sm hover:opacity-90 transition-opacity">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-[var(--border)]">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-[var(--text-muted)]">
+      <span>© <span id="year"></span> Ashutosh Singh. Crafted with intention.</span>
+      <a href="#home" class="hover:text-[var(--text)] transition-colors">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <!-- Project Modal -->
+  <div id="projectModal" class="fixed inset-0 z-[200] flex items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="modalBackdrop"></div>
+    <div class="relative glass max-w-lg w-full p-8 max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-start mb-4">
+        <h3 id="modalTitle" class="text-2xl font-serif"></h3>
+        <button class="icon-btn" id="closeModal" aria-label="Close">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p id="modalDesc" class="text-[var(--text-muted)] leading-relaxed mb-6"></p>
+      <div id="modalTags" class="flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-5 py-3 rounded-full bg-[var(--text)] text-[var(--bg)] text-sm font-medium opacity-0 pointer-events-none transition-all duration-300 z-[300] translate-y-4"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
